@@ -1,3 +1,7 @@
+# hadith-data-admin
+
+Frontend of Hadith where to check and refine
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
