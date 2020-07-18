@@ -51,14 +51,17 @@ function App() {
 
     console.log(formatData);
     //https://hadithsaverapi-dot-true-islam-dev.ew.r.appspot.com/hadith
-    const rawResponse = await fetch("http://localhost:5000/hadith", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formatData),
-    });
+    const rawResponse = await fetch(
+      "https://hadithsaverapi-dot-islam786.ew.r.appspot.com/hadith",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formatData),
+      }
+    );
     const content = await rawResponse.json();
 
     console.log(content);
