@@ -7,6 +7,7 @@ function App() {
   const [hadithId, setHadithId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [saveRes, setSaveRes] = useState({});
+  const [chapterRes, setChapterRes] = useState({});
 
   const onDataChange = (key, value) => {
     setData((oldState) => {
@@ -16,7 +17,46 @@ function App() {
     });
   };
 
+  const saveChapterData = async () => {
+    console.log("saving data");
+    setLoading(true);
+    const formatData = {};
+    formatData.chapter_number = data.chapterNumber;
+    formatData.book_number = data.bookNumber;
+    formatData.arabic = {
+      chapterName: data.chapterName,
+      bookName: data.bookName,
+    };
+    formatData.english = {
+      chapterName: data.en_chapterName,
+      bookName: data.en_bookName,
+    };
+    formatData.urdu = {
+      chapterName: data.ur_chapterName,
+      bookName: data.ur_bookName,
+    };
+
+    const rawResponse = await fetch(
+      "https://hadithsaverapi-dot-islam786.ew.r.appspot.com/chapter",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formatData),
+      }
+    );
+    const content = await rawResponse.json();
+
+    console.log(content);
+    setChapterRes(content);
+    setLoading(false);
+  };
+
   const saveData = async () => {
+    console.log("saving data");
+    setLoading(true);
     const formatData = {};
     formatData.advanceNumbering = data.advanceNumbering;
     formatData.main = {
@@ -66,6 +106,7 @@ function App() {
 
     console.log(content);
     setSaveRes(content);
+    setLoading(false);
   };
 
   const onHadithChange = (event) => {
@@ -128,6 +169,18 @@ function App() {
         <span style={{ color: "red" }}>Failed to save urdu</span>
       ) : (
         "Sucessfully save urdu"
+      )}{" "}
+      <br />
+      {chapterRes.chapter_error ? (
+        <span style={{ color: "red" }}>Failed to save chapter</span>
+      ) : (
+        "Sucessfully save chapter"
+      )}{" "}
+      <br />
+      {chapterRes.book_error ? (
+        <span style={{ color: "red" }}>Failed to save book</span>
+      ) : (
+        "Sucessfully save book"
       )}{" "}
       <br />
       {loading ? "Loading...." : null}
@@ -248,6 +301,9 @@ function App() {
       </div>
       <button style={{ marginLeft: "100px" }} onClick={saveData}>
         Save
+      </button>
+      <button style={{ marginLeft: "10px" }} onClick={saveChapterData}>
+        Save chapter
       </button>
     </div>
   );
