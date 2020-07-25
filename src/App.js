@@ -65,7 +65,7 @@ function App() {
       bookNumber: data.bookNumber,
       chapterNumber: data.chapterNumber,
       linkedHadiths: data.linkedHadiths,
-      linkedAyahs: data.linkedHadiths,
+      linkedAyahs: data.linkedAyahs,
       relatedHadiths: data.relatedHadiths,
       tags: data.tags,
     };
@@ -90,7 +90,7 @@ function App() {
     };
 
     console.log(formatData);
-    //https://hadithsaverapi-dot-true-islam-dev.ew.r.appspot.com/hadith
+    //https://hadithsaverapi-dot-islam786.ew.r.appspot.com/hadith
     const rawResponse = await fetch(
       "https://hadithsaverapi-dot-islam786.ew.r.appspot.com/hadith",
       {
