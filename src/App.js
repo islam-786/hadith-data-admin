@@ -278,7 +278,7 @@ function App() {
           onChange={onDataChange}
         />
         <TextInput
-          shortText
+          longText
           arabic
           label="ur_chapterName"
           value={data}
